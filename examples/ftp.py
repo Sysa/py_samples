@@ -30,11 +30,14 @@ class MyFTP(FTP):
         return response
 
     def write(self, *args):
-        with open('cmd.txt', 'a') as f:
-            f.write(*args)
-            f.write('\n')
+        logging.info(*args) # writing to _log file
+        print(*args) # writing to sys.stdout cmd console
 
 ftp = MyFTP('ftp.cqg.com')
 ftp.set_debuglevel(2)
 ftp.login()
 ftp.retrlines('LIST', ftp.write)
+
+# ftp.write("write to both destination, console output and logging file") # write to both destination, console output and logging file
+# logging.info("writes only in file") # writes only in file
+# print('writes only in console') # writes only in console
